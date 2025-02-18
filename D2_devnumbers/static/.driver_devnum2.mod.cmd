@@ -1,0 +1,1 @@
+savedcmd_/home/surendhar/Linux_Device_Drivers/D2_devnumbers/static/driver_devnum2.mod := printf '%s\n'   driver_devnum2.o | awk '!x[$$0]++ { print("/home/surendhar/Linux_Device_Drivers/D2_devnumbers/static/"$$0) }' > /home/surendhar/Linux_Device_Drivers/D2_devnumbers/static/driver_devnum2.mod
