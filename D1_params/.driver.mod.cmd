@@ -1,0 +1,1 @@
+savedcmd_/home/surendhar/Linux_Device_Drivers/D1_params/driver.mod := printf '%s\n'   driver.o | awk '!x[$$0]++ { print("/home/surendhar/Linux_Device_Drivers/D1_params/"$$0) }' > /home/surendhar/Linux_Device_Drivers/D1_params/driver.mod

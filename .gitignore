@@ -1,0 +1,43 @@
+# Ignore object files and binaries
+*.o
+*.ko
+*.obj
+*.elf
+*.bin
+
+# Ignore compiled files
+*.out
+*.a
+*.so
+
+# Ignore kernel module signatures
+*.der
+*.priv
+
+# Ignore directory-specific files (including hidden files)
+*/.der
+*/.priv
+
+# Ignore build directories
+build/
+tmp/
+out/
+
+# Ignore editor files
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Ignore log files
+*.log
+dmesg.log
+
+# Ignore other temporary files
+*~
+
+# Ignore personal files and directories
+.vscode/
+.idea/
+*.DS_Store
+

@@ -1,0 +1,1 @@
+savedcmd_/home/surendhar/Linux_Device_Drivers/D1_params/driver.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/surendhar/Linux_Device_Drivers/D1_params/driver.ko /home/surendhar/Linux_Device_Drivers/D1_params/driver.o /home/surendhar/Linux_Device_Drivers/D1_params/driver.mod.o
