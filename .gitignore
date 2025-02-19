@@ -4,6 +4,8 @@
 *.obj
 *.elf
 *.bin
+*.mod
+*.cmd 
 
 # Ignore compiled files
 *.out
