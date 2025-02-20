@@ -21,38 +21,51 @@ dev_t dev = 0;
 static struct class *dev_class;
 static struct cdev f_cdev;
 static char kernel_buffer[BUFFER_SIZE];
+static size_t data_size = 0;  // Tracks the amount of written data
+
 
 /* Read function */
 static ssize_t f_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
 {
     int ret;
-    if (*off >= BUFFER_SIZE) return 0;  
     
-    if (len > (BUFFER_SIZE - *off)) len = BUFFER_SIZE - *off;
+    if (*off >= data_size) return 0;  // No more data to read
+
+    if (len > data_size - *off) len = data_size - *off;
 
     ret = copy_to_user(buf, kernel_buffer + *off, len);
     if (ret != 0) return -EFAULT;
 
-    *off += len;
+    *off += len;  // Update offset for next read
     pr_info("Read %zu bytes from device\n", len);
     return len;
 }
 
+
 /* Write function */
+
 static ssize_t f_write(struct file *filp, const char __user *buf, size_t len, loff_t *off)
 {
     int ret;
-    if (*off >= BUFFER_SIZE) return -ENOSPC;  // No space left
-    
-    if (len > (BUFFER_SIZE - *off)) len = BUFFER_SIZE - *off;
+    if (len > BUFFER_SIZE) len = BUFFER_SIZE;  // Avoid overflow
 
-    ret = copy_from_user(kernel_buffer + *off, buf, len);
+    ret = copy_from_user(kernel_buffer, buf, len);
     if (ret != 0) return -EFAULT;
 
-    *off += len;
+    data_size = len;  // Store data size
     pr_info("Wrote %zu bytes to device\n", len);
     return len;
 }
+
+
+
+/* File operations structure */
+static struct file_operations fops =
+{
+    .owner   = THIS_MODULE,
+    .read    = f_read,
+    .write   = f_write,
+};
 
 
 static int __init f_driver_init(void)
@@ -69,14 +82,14 @@ static int __init f_driver_init(void)
     cdev_init(&f_cdev, &fops);
 
     /* Add cdev to the system */
-    if ((cdev_add(&etx_cdev, dev, 1)) < 0)
+    if ((cdev_add(&f_cdev, dev, 1)) < 0)
     {
         pr_err("Cannot add the device to the system\n");
         goto r_class;
     }
 
     /* Create class */
-    if (IS_ERR(dev_class = class_create(THIS_MODULE, "f_class")))
+    if (IS_ERR(dev_class = class_create("f_class")))
     {
         pr_err("Cannot create the struct class\n");
         goto r_class;
