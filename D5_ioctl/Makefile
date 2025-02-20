@@ -1,4 +1,4 @@
-obj-m += driver_fops.o
+obj-m += D5_driver.o
 
 KDIR = "/lib/modules/$(shell uname -r)/build"
 PWD := $(shell pwd)
