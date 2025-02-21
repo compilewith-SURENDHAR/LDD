@@ -29,6 +29,7 @@ static dev_t my_dev;
 static struct class *my_class;
 static struct cdev my_cdev;
 static char kernel_buffer[BUFFER_SIZE];
+//varibale which is changes through ioctl
 static int device_value = 10;
 
 // Function prototypes
