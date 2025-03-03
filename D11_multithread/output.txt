@@ -1,0 +1,42 @@
+surendhar@surendhar-IdeaPad-3-15ALC6-Ub:~/Linux_Device_Drivers/D11_multithread$ make all
+make -C /lib/modules/6.11.0-17-generic/build  M=/home/surendhar/Linux_Device_Drivers/D11_multithread modules
+make[1]: Entering directory '/usr/src/linux-headers-6.11.0-17-generic'
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+  You are using:           gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+  CC [M]  /home/surendhar/Linux_Device_Drivers/D11_multithread/D11_driver.o
+  MODPOST /home/surendhar/Linux_Device_Drivers/D11_multithread/Module.symvers
+  CC [M]  /home/surendhar/Linux_Device_Drivers/D11_multithread/D11_driver.mod.o
+  LD [M]  /home/surendhar/Linux_Device_Drivers/D11_multithread/D11_driver.ko
+  BTF [M] /home/surendhar/Linux_Device_Drivers/D11_multithread/D11_driver.ko
+Skipping BTF generation for /home/surendhar/Linux_Device_Drivers/D11_multithread/D11_driver.ko due to unavailability of vmlinux
+make[1]: Leaving directory '/usr/src/linux-headers-6.11.0-17-generic'
+surendhar@surendhar-IdeaPad-3-15ALC6-Ub:~/Linux_Device_Drivers/D11_multithread$ sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 /home/surendhar/Linux_Device_Drivers/MOK.priv /home/surendhar/Linux_Device_Drivers/MOK.der /home/surendhar/Linux_Device_Drivers/D11_multithread/D11_driver.ko
+[sudo] password for surendhar:
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+OUTPUT
+
+surendhar@surendhar-IdeaPad-3-15ALC6-Ub:~/Linux_Device_Drivers/D11_multithread$ sudo insmod D11_driver.ko
+surendhar@surendhar-IdeaPad-3-15ALC6-Ub:~/Linux_Device_Drivers/D11_multithread$ sudo dmesg | tail -n 20
+[  879.714505] Thread 2: Count = 5
+[  879.714504] Thread 1: Count = 10
+[  880.738736] Thread 1: Count = 11
+[  881.762421] Thread 2: Count = 6
+[  881.762422] Thread 1: Count = 12
+[  882.786686] Thread 1: Count = 13
+[  883.810635] Thread 2: Count = 7
+[  883.810645] Thread 1: Count = 14
+[  884.834624] Thread 1: Count = 15
+[  885.858723] Thread 1: Count = 16
+[  885.858725] Thread 2: Count = 8
+[  886.882674] Thread 1: Count = 17
+[  887.906407] Thread 1: Count = 18
+[  887.906426] Thread 2: Count = 9
+[  888.931783] Thread 1: Count = 19
+[  889.954649] Thread 2: Count = 10
+[  889.954648] Thread 1: Count = 20
+[  890.978654] Thread 1: Count = 21
+[  892.002455] Thread 2: Count = 11
+[  892.002460] Thread 1: Count = 22
